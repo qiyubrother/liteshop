@@ -1,0 +1,148 @@
+﻿@using System.Globalization
+@model IEnumerable<TGoods>
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    var ajaxOption = new AjaxOptions()
+    {
+        OnSuccess = "AddToCartSuccess",
+        OnFailure = "AddToCartFailure",
+        HttpMethod = "Post"
+    }; 
+}
+
+    <h2>Index</h2>
+
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#tejia" aria-controls="tejia" role="tab" data-toggle="tab">今日特价</a></li>
+        <li role="presentation"><a href="#shuiguo" aria-controls="shuiguo" role="tab" data-toggle="tab">水果</a></li>
+        <li role="presentation"><a href="#ganguo" aria-controls="ganguo" role="tab" data-toggle="tab">干果</a></li>
+        <li role="presentation"><a href="#shucai" aria-controls="shucai" role="tab" data-toggle="tab">蔬菜</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- 特价商品 -->
+        <div role="tabpanel" class="tab-pane active" id="tejia">
+            <ul class="list-group" id="goods-list">
+                @foreach (var m in Model)
+{
+    // 只输出特价商品 GoodsType = 0
+    if (m.GoodsTypeId != 0)
+    {
+        continue;
+    }
+    <li class="list-group-item tabFix">
+        <div class="container q-clear-padding ">
+            <div class="col-xs-2" style="margin: 0px;padding: 0px;"><img class="q-img-list" alt="产品图片" src=@string.Format("/Images/{0}", m.ImgSource) /></div>
+            <div class="col-xs-7" style="margin: 0px;padding-left: 30px;">
+                <h4>@m.GoodsName</h4>
+                <small class="fa fa-commenting-o" style="color:gray;">&nbsp;@m.Description</small>
+            </div>
+            @Ajax.ActionLink("¥ " + m.SpecialPrice, "AddToChart", "Cart", new { goodsId = m.ID }, ajaxOption, new { @class = "btn btn-success col-xs-3" })
+        </div>
+    </li>
+}
+            </ul>
+            <div class="alert alert-danger text-center" role="alert"><span class="fa fa-volume-up">&nbsp;</span>每种特价商品限购一份！</div>
+        </div>
+        <!-- 水果 -->
+        <div role="tabpanel" class="tab-pane " id="shuiguo">
+            <ul class="list-group " id="goods-list">
+                @foreach (var m in Model)
+                {
+                    // 只输出水果 GoodsType = 1
+                    if (m.GoodsTypeId != 1)
+                    {
+                        continue;
+                    }
+                    <li class=" list-group-item tabFix ">
+                        <div class="container q-clear-padding">
+                            <div class="col-xs-2" style="margin: 0px;padding: 0px;"><img class="q-img-list" alt="产品图片" src=@string.Format("/Images/{0}", m.ImgSource) /></div>
+                            <div class="col-xs-7" style="margin: 0px;padding-left: 30px;">
+                                <h4>@m.GoodsName</h4>
+                                <small class="fa fa-commenting-o" style="color:gray;">&nbsp;@m.Description</small>
+                            </div>
+                            @Ajax.ActionLink("¥ " + m.Price, "AddToChart", "Cart", new { goodsId = m.ID }, ajaxOption, new { @class = "btn btn-success col-xs-3" })
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- 干果 -->
+        <div role="tabpanel" class="tab-pane" id="ganguo">
+            <ul class="list-group" id="goods-list">
+                @foreach (var m in Model)
+                {
+                    // 只输出干果 GoodsType = 2
+                    if (m.GoodsTypeId != 2)
+                    {
+                        continue;
+                    }
+                    <li class=" list-group-item tabFix ">
+                        <div class="container q-clear-padding">
+                            <div class="col-xs-2" style="margin: 0px;padding: 0px;"><img class="q-img-list" alt="产品图片" src=@string.Format("/Images/{0}", m.ImgSource) /></div>
+                            <div class="col-xs-7" style="margin: 0px;padding-left: 30px;">
+                                <h4>@m.GoodsName</h4>
+                                <small class="fa fa-commenting-o" style="color:gray;">&nbsp;@m.Description</small>
+                            </div>
+                            @Ajax.ActionLink("¥ " + m.Price, "AddToChart", "Cart", new { goodsId = m.ID }, ajaxOption, new { @class = "btn btn-success col-xs-3" })
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- 蔬菜 -->
+        <div role="tabpanel" class="tab-pane" id="shucai">
+            <ul class="list-group" id="goods-list">
+                @foreach (var m in Model)
+                {
+                    // 只输出蔬菜 GoodsType = 3
+                    if (m.GoodsTypeId != 3)
+                    {
+                        continue;
+                    }
+                    <li class=" list-group-item tabFix">
+                        <div class="container q-clear-padding q-clear-border-radius">
+                            <div class="col-xs-2" style="margin: 0px;padding: 0px;"><img class="q-img-list" alt="产品图片" src=@string.Format("/Images/{0}", m.ImgSource) /></div>
+                            <div class="col-xs-7" style="margin: 0px;padding-left: 30px;">
+                                <h4>@m.GoodsName</h4>
+                                <small class="fa fa-commenting-o" style="color:gray;">&nbsp;@m.Description</small>
+                            </div>
+                            @Ajax.ActionLink("¥ " + m.Price, "AddToChart", "Cart", new { goodsId = m.ID }, ajaxOption, new { @class = "btn btn-success col-xs-3" })
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="navbar navbar-fixed-bottom">
+    <div class="btn-group btn-group-justified ">
+        <a href="/" class="btn btn-default q-clear-border-radius btn-primary"><span class="glyphicon glyphicon-tags"></span><br />商品</a>
+        <a href="/Cart/Buy" class="btn btn-default q-clear-border-radius"><span class="glyphicon glyphicon-shopping-cart"></span><br />购物车</a>
+        <a href="/User/Index" class="btn btn-default q-clear-border-radius"><span class="glyphicon glyphicon-user"></span><br />我</a>
+    </div>
+</div>
+<script>
+
+    function AddToCartSuccess() {
+        $().toastmessage('showSuccessToast', "添加成功！");
+    }
+
+    function AddToCartFailure() {
+        $().toastmessage('showWarningToast', "添加购物车失败！请先登录！");
+        //alert("添加购物车失败！请先登录！");
+        setTimeout("window.location.href='/user/login'", 1500);
+    }
+
+</script>
+
+

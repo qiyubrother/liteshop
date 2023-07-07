@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Buy";
+    double total = 0;
+
+    dynamic datas = ViewData["data"];
+    
+}
+
+<div class="header-height-margin">&nbsp;</div>
+<h2 class="text-center">购物清单</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in datas)
+            {
+                <tr>
+                    <td class="q-img-list"><img class="q-img-list" alt="产品图片" src=@string.Format("/Images/{0}", item.Item6) /></td>
+                    <td>@item.Item3</td>
+                    <td><span class="fa fa-rmb"></span>@item.Item4</td>
+                    <td>@item.Item5</td>
+                    <td><span class="fa fa-rmb"></span>@(item.Item4 * item.Item5)</td>
+                </tr>
+                    {
+                        total += item.Item4 * item.Item5;
+                    }
+                }
+        </tbody>
+        <tfoot>
+            <tr style="background-color:whitesmoke">
+                <td colspan="5">总价：<span class="fa fa-rmb"></span>@total</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td>收货人</td>
+            <td>@Session["userName"]</td>
+        </tr>
+        <tr>
+            <td>联系电话</td>
+            <td>@Session["mobile"]</td>
+        </tr>
+        <tr>
+            <td>提货网点</td>
+            <td>侯家庄分店（兴和堂药店前）</td>
+        </tr>
+    </table>
+<div class="text-center">
+    @Html.ActionLink("提交订单", "CreateOrder", "Cart", null, new { @class = "btn btn-danger" })
+</div>
+<div class="navbar navbar-fixed-bottom">
+    <div class="btn-group btn-group-justified ">
+        <a href="/" class="btn btn-default q-clear-border-radius"><span class="glyphicon glyphicon-tags"></span><br />商品</a>
+        <a href="/Cart/Buy" class="btn btn-default btn-primary q-clear-border-radius"><span class="glyphicon glyphicon-shopping-cart"></span><br />购物车</a>
+        <a href="/User/Index" class="btn btn-default q-clear-border-radius"><span class="glyphicon glyphicon-user"></span><br />我</a>
+    </div>
+</div>

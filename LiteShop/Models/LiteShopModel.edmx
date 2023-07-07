@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LitShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TFeedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="CreateDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TGoods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GoodsTypeId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="ImgSource" Type="nvarchar" MaxLength="100" />
+          <Property Name="SpecialPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="TGoodsType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="GoodsType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrderDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="goodsId" Type="int" Nullable="false" />
+          <Property Name="GoodsName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="SubTotal" Type="float" Nullable="false" />
+          <Property Name="ImgSource" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TSystemMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TToday_Special_Offer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Today" Type="date" />
+        </EntityType>
+        <EntityType Name="TUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="imgSource" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="11" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Psd" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TUserCarts">
+          <Key>
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="GoodsId" />
+          </Key>
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GoodsId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="date" />
+        </EntityType>
+        <Association Name="FK_TUserCarts_TUserCarts">
+          <End Role="TUserCarts" Type="Self.TUserCarts" Multiplicity="1" />
+          <End Role="TUserCarts1" Type="Self.TUserCarts" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TUserCarts">
+              <PropertyRef Name="Mobile" />
+              <PropertyRef Name="GoodsId" />
+            </Principal>
+            <Dependent Role="TUserCarts1">
+              <PropertyRef Name="Mobile" />
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LitShopModelStoreContainer">
+          <EntitySet Name="TFeedback" EntityType="Self.TFeedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TGoods" EntityType="Self.TGoods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TGoodsType" EntityType="Self.TGoodsType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOrder" EntityType="Self.TOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOrderDetails" EntityType="Self.TOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSystemMessage" EntityType="Self.TSystemMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TToday_Special_Offer" EntityType="Self.TToday_Special_Offer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUser" EntityType="Self.TUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUserCarts" EntityType="Self.TUserCarts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TUserCarts_TUserCarts" Association="Self.FK_TUserCarts_TUserCarts">
+            <End Role="TUserCarts" EntitySet="TUserCarts" />
+            <End Role="TUserCarts1" EntitySet="TUserCarts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LitShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LitShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TGoods" EntityType="LitShopModel.TGoods" />
+          <EntitySet Name="TGoodsType" EntityType="LitShopModel.TGoodsType" />
+          <EntitySet Name="TOrder" EntityType="LitShopModel.TOrder" />
+          <EntitySet Name="TOrderDetails" EntityType="LitShopModel.TOrderDetails" />
+          <EntitySet Name="TSystemMessage" EntityType="LitShopModel.TSystemMessage" />
+          <EntitySet Name="TToday_Special_Offer" EntityType="LitShopModel.TToday_Special_Offer" />
+          <EntitySet Name="TUser" EntityType="LitShopModel.TUser" />
+          <EntitySet Name="TUserCarts" EntityType="LitShopModel.TUserCarts" />
+          <AssociationSet Name="FK_TUserCarts_TUserCarts" Association="LitShopModel.FK_TUserCarts_TUserCarts">
+            <End Role="TUserCarts" EntitySet="TUserCarts" />
+            <End Role="TUserCarts1" EntitySet="TUserCarts" />
+          </AssociationSet>
+          <EntitySet Name="TFeedback" EntityType="LitShopModel.TFeedback" />
+        </EntityContainer>
+        <EntityType Name="TGoods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsTypeId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="ImgSource" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SpecialPrice" Type="Double" />
+        </EntityType>
+        <EntityType Name="TGoodsType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="GoodsType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TOrderDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="goodsId" Type="Int32" Nullable="false" />
+          <Property Name="GoodsName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="SubTotal" Type="Double" Nullable="false" />
+          <Property Name="ImgSource" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TSystemMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TToday_Special_Offer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Today" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="TUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="imgSource" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Psd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TUserCarts">
+          <Key>
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="GoodsId" />
+          </Key>
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TUserCarts1" Relationship="LitShopModel.FK_TUserCarts_TUserCarts" FromRole="TUserCarts" ToRole="TUserCarts1" />
+          <NavigationProperty Name="TUserCarts2" Relationship="LitShopModel.FK_TUserCarts_TUserCarts" FromRole="TUserCarts1" ToRole="TUserCarts" />
+        </EntityType>
+        <Association Name="FK_TUserCarts_TUserCarts">
+          <End Type="LitShopModel.TUserCarts" Role="TUserCarts" Multiplicity="1" />
+          <End Type="LitShopModel.TUserCarts" Role="TUserCarts1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TUserCarts">
+              <PropertyRef Name="Mobile" />
+              <PropertyRef Name="GoodsId" />
+            </Principal>
+            <Dependent Role="TUserCarts1">
+              <PropertyRef Name="Mobile" />
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TFeedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LitShopModelStoreContainer" CdmEntityContainer="LitShopEntities">
+          <EntitySetMapping Name="TGoods">
+            <EntityTypeMapping TypeName="LitShopModel.TGoods">
+              <MappingFragment StoreEntitySet="TGoods">
+                <ScalarProperty Name="SpecialPrice" ColumnName="SpecialPrice" />
+                <ScalarProperty Name="ImgSource" ColumnName="ImgSource" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="GoodsTypeId" ColumnName="GoodsTypeId" />
+                <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TGoodsType">
+            <EntityTypeMapping TypeName="LitShopModel.TGoodsType">
+              <MappingFragment StoreEntitySet="TGoodsType">
+                <ScalarProperty Name="GoodsType" ColumnName="GoodsType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrder">
+            <EntityTypeMapping TypeName="LitShopModel.TOrder">
+              <MappingFragment StoreEntitySet="TOrder">
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrderDetails">
+            <EntityTypeMapping TypeName="LitShopModel.TOrderDetails">
+              <MappingFragment StoreEntitySet="TOrderDetails">
+                <ScalarProperty Name="ImgSource" ColumnName="ImgSource" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+                <ScalarProperty Name="goodsId" ColumnName="goodsId" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSystemMessage">
+            <EntityTypeMapping TypeName="LitShopModel.TSystemMessage">
+              <MappingFragment StoreEntitySet="TSystemMessage">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TToday_Special_Offer">
+            <EntityTypeMapping TypeName="LitShopModel.TToday_Special_Offer">
+              <MappingFragment StoreEntitySet="TToday_Special_Offer">
+                <ScalarProperty Name="Today" ColumnName="Today" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUser">
+            <EntityTypeMapping TypeName="LitShopModel.TUser">
+              <MappingFragment StoreEntitySet="TUser">
+                <ScalarProperty Name="Psd" ColumnName="Psd" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="imgSource" ColumnName="imgSource" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUserCarts">
+            <EntityTypeMapping TypeName="LitShopModel.TUserCarts">
+              <MappingFragment StoreEntitySet="TUserCarts">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFeedback">
+            <EntityTypeMapping TypeName="LitShopModel.TFeedback">
+              <MappingFragment StoreEntitySet="TFeedback">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

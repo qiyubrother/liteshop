@@ -1,0 +1,23 @@
+﻿@model LiteShop.Models.TUser
+@{
+
+    ViewBag.Title = "Index";
+}
+
+<div class="header-height-margin">&nbsp;</div>
+<h2 class="text-center">个人中心</h2>
+<div class="list-group">
+    <a class=" list-group-item" href="/User/Info"><span class="fa fa-user-secret"></span>&nbsp;<span class="inline-block">基本信息</span><span class="glyphicon glyphicon-chevron-right inline-block float-right"></span></a>
+    <a class=" list-group-item" href="/Order/Index"><span class="glyphicon glyphicon-tag"></span>&nbsp;<span class="inline-block">我的订单</span><span class="glyphicon glyphicon-chevron-right inline-block float-right"></span></a>
+    <a class=" list-group-item" href="/SystemMessage/Index"><span class="glyphicon glyphicon-volume-up"></span>&nbsp;<span class="inline-block">系统消息</span><span class="glyphicon glyphicon-chevron-right inline-block float-right"></span></a>
+    <a class=" list-group-item" href="/Feedback/Index"><span class="fa fa-commenting-o"></span>&nbsp;<span class="inline-block">服务于反馈</span><span class="glyphicon glyphicon-chevron-right inline-block float-right"></span></a>
+    <a class=" list-group-item" href="/User/Logout"><span class="fa fa-sign-out"></span>&nbsp;<span class="inline-block">退出当前账号</span><span class="glyphicon glyphicon-chevron-right inline-block float-right"></span></a>
+</div>
+
+<div class="navbar navbar-fixed-bottom">
+    <div class="btn-group btn-group-justified ">
+        <a href="/" class="btn btn-default q-clear-border-radius"><span class="glyphicon glyphicon-tags"></span><br />商品</a>
+        <a href="/Cart/Buy" class="btn btn-default q-clear-border-radius"><span class="glyphicon glyphicon-shopping-cart"></span><br />购物车</a>
+        <a href="/User/Index" class="btn btn-default q-clear-border-radius btn-primary"><span class="glyphicon glyphicon-user"></span><br />我</a>
+    </div>
+</div>
